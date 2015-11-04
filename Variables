@@ -1,0 +1,13 @@
+public interface Variables {
+    
+    int xpos = 300;
+    int ypos = 350;
+    
+    
+    String Title = "Dictionary";
+    String Menu[]= { "Add Word", "Display"};
+    String AddWord[]= { "New Entry", "Remove Entry"};
+    String Show[]= { "Current List", "Obsolete List"};
+    
+    
+}
