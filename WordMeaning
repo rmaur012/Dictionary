@@ -1,0 +1,23 @@
+public class WordMeaning {
+
+    String word = null;
+    String meaning = null;
+
+    WordMeaning(String one, String two) {
+        word = one;
+        meaning = two;
+    }
+    
+    String getWord(){
+        return word;
+    }
+    
+    String getMeaning(){
+        return meaning;
+    }
+    
+    void writeMeaning(String newmean){
+        meaning = newmean;
+    }
+
+}
