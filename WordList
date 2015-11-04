@@ -1,0 +1,123 @@
+public class WordList {
+
+    private WordMeaningNode list;
+
+    WordList() {
+        list = null;
+    }
+
+    void add(WordMeaning p) throws NullPointerException {
+        WordMeaningNode temp = new WordMeaningNode(p);
+
+        if (list == null) {
+            list = temp;
+        } else {
+            WordMeaningNode aux = list;
+            boolean aux2 = true;
+            WordMeaningNode back = null;
+            boolean found = false;
+
+            while (aux != null && !found) {
+                if (temp.combo.getWord().compareToIgnoreCase(aux.combo.getWord()) <= 0) {
+                    found = true;
+                } else {
+                    back = aux;
+                    aux = aux.next;
+                }
+            }
+            if (aux == null) {
+                aux = back;
+            } else {
+                aux2 = false;
+            }
+            if (temp.combo.getWord().compareToIgnoreCase(aux.combo.getWord()) == 0) {
+                String fix = aux.combo.getMeaning();
+                String yep = temp.combo.getMeaning();
+                String fixed = fix + "\n        -" + yep;
+                aux.combo.writeMeaning(fixed);
+            } else {
+                if (aux2) {
+                    back.next = temp;
+                } else {
+                    temp.next = aux;
+                    if (back == null) {
+                        list = temp;
+                    } else {
+                        back.next = temp;
+                        temp.next = aux;
+                    }
+                }
+            }
+        }
+    }
+
+    WordMeaningNode delete(String out) {
+
+        WordMeaning find = new WordMeaning(out, null);
+        WordMeaningNode temp = new WordMeaningNode(find);
+
+        WordMeaningNode aux = list;
+        WordMeaningNode back = null;
+        boolean found = false;
+
+        while (aux != null && !found) {
+            if (temp.combo.getWord().compareToIgnoreCase(aux.combo.getWord()) == 0) {
+                found = true;
+            } else {
+                back = aux;
+                aux = aux.next;
+            }
+        }
+        WordMeaningNode send = null;
+        if (found == true && back == null) {
+            send = aux;
+            list=list.next;
+        } else if(found == true){
+            send = aux;
+            back.next= aux.next;
+        }
+        return send;
+    }
+
+    String displayCurrent() throws NullPointerException {
+        if (list != null) {
+            if (list.next == null) {
+                return list.getEverything();
+            } else {
+                return list.getEverything() + "\n" + this.displayCurrent(list.next);
+            }
+        }
+        return null;
+    }
+
+    String displayCurrent(WordMeaningNode cont) throws NullPointerException {
+        if (cont.next == null) {
+            return cont.getEverything();
+        } else {
+            return cont.getEverything() + "\n" + displayCurrent(cont.next);
+        }
+    }
+
+    String displayObsolete() throws NullPointerException {
+        if (list != null) {
+            if (list.next == null) {
+                return list.combo.getWord();
+            } else {
+                return list.combo.getWord() + "\n" + this.displayObsolete(list.next);
+            }
+        }
+        return null;
+    }
+
+    String displayObsolete(WordMeaningNode cont) throws NullPointerException {
+        if (cont != null) {
+            if (cont.next == null) {
+                return cont.combo.getWord();
+            } else {
+                return cont.combo.getWord() + "\n" + displayObsolete(cont.next);
+            }
+        }
+        return null;
+    }
+
+}
