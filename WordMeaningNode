@@ -1,0 +1,18 @@
+public class WordMeaningNode {
+    
+    WordMeaning combo;
+    WordMeaningNode next = null;
+    
+    WordMeaningNode(String first, String second){
+        combo = new WordMeaning(first, second);
+    }
+    
+    WordMeaningNode(WordMeaning f){
+        combo = f;
+    }
+    
+    String getEverything(){
+        String all =(combo.getWord() + " - " + combo.getMeaning());
+        return all;
+    }
+}
