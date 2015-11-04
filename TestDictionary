@@ -1,0 +1,55 @@
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+/**
+ *
+ * @author Ricky
+ */
+public class TestDictionary {
+    
+    public static void main(String[] args) {
+
+        WordList curr = new WordList();
+        WordList obsolete = new WordList();
+        boolean done = false;
+        try {
+            String menus = "Enter Option\n1. Enter A New Word And Meaning\n"
+                    + "2. Remove A Word  \n3. List Current Dictionary\n4. List Obsolete Words\n5. Exit";
+            while (!done) {
+                String s = JOptionPane.showInputDialog(menus);
+                int i = Integer.parseInt(s);
+                switch (i) {
+                    case 1:
+                        String first = JOptionPane.showInputDialog("What Word Would You Like To Add?");
+                        String last = JOptionPane.showInputDialog("What Is The Meaning Of This Word?");
+                        WordMeaning entry = new WordMeaning(first, last);
+                        curr.add(entry);
+                        break;
+
+                    case 2:
+                        String na = JOptionPane.showInputDialog("What Word Would You Like To Remove?");
+                        obsolete.add(curr.delete(na).combo);
+                        break;
+
+                    case 3:
+                        JTextArea out = new JTextArea(curr.displayCurrent(), 15, 30);
+                        JScrollPane pane = new JScrollPane(out);
+                        JOptionPane.showMessageDialog(null, pane, "Dictionary", JOptionPane.INFORMATION_MESSAGE);
+                        break;
+
+                    case 4:
+                        JTextArea outs = new JTextArea(obsolete.displayObsolete(), 15, 30);
+                        JScrollPane panes = new JScrollPane(outs);
+                        JOptionPane.showMessageDialog(null, panes, "Obsolete Words", JOptionPane.INFORMATION_MESSAGE);
+                        break;
+                        
+                      case 5:  
+                        done = true;
+                        break;
+                }
+            }
+        } catch (NullPointerException | NumberFormatException e) {
+        }
+    }
+  }
